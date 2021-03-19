@@ -1,0 +1,780 @@
+1/17:
+1. Two Sum
+	Use dict
+167. Two Sum II - Input array is sorted
+	三种方法：① two pointer; ② dictionary； ③ binary search
+1099. Two Sum Less Than K
+	有种很特殊的解法Counting sort
+653. Two Sum IV - Input is a BST
+	Use Set to store the value
+1214. Two Sum BSTs
+	Marked. Iterative (inorder traversal遍历两棵树)
+15. 3Sum
+	Notice that the solution set must not contain duplicate triplets. 注意如何处理duplicate（要考虑两个地方）
+259. 3Sum Smaller
+	还是用双指针： for i in range(len(nums)): l, r = i+1, len(nums)-1;关键：count = count+(r-l)
+20. Valid Parentheses
+	循环中的那个if语句有3个conditions
+32. Longest Valid Parentheses
+	用stack做，stack里面存tuple
+	
+1/18:
+953. Verifying an Alien Dictionary
+	第一遍没记住，关键是对zip的理解（用list comprehesion + zip)
+16. 3Sum Closest
+	还是用双指针，关键是用abs(diff)
+	处理这种N sum的问题，用双指针都要先排序
+206. Reverse Linked List
+	没记住，关键是如何递归
+234. Palindrome Linked List
+	Follow-up:用O(n) time and O(1) space比较难 -> reverse 2nd half in-place(最后要还原because the function could be a part of a bigger program that doesn't want the Linked List broken)一共用3个def
+415. Add Strings
+	没记住，主要是借助carry(商数和余数)，最后join还原成str
+	
+1/19:
+989. Add to Array-Form of Integer
+	没记住。巧用divmod得到商数和余数，把K自己当做carry
+67. Add Binary
+	忘了。法一）bit by bit computation; 用到zfill。还是Carry (%2 ==0?）
+	法二）bit manipulation
+66. Plus One
+	从最后一位开始,一个个往前看,遇到9就加一,不是9加一就返回
+125. Valid Palindrome
+	忘了. 用isalnum判断是否为数字或字母. 重点是要用两个while检查l<r
+680. Valid Palindrome II
+	记住了！主要用s==s[::-1]
+21. Merge Two Sorted Lists
+	iteration比recursion更好，O(S)小
+88. Merge Sorted Array
+	区分和上一题不同！！(我的做法为啥错？）
+	Interview Tip: Whenever you're trying to solve an array problem in-place, always consider the possibility of iterating backwards instead of forwards through the array. It can completely change the problem, and make it a lot easier.
+7. Reverse Integer
+	记住了
+344. Reverse String
+	记住了。Two pointers
+541. Reverse String II
+	记住了。直接用[::-1]或者reversed(a[i:i+k])
+557. Reverse Words in a String III
+	记住了。Reverse string 只能用[::-1]， 不能用reverse之类（reverse是针对list的）
+345. Reverse Vowels of a String
+	记住了。同样也是用两个while检查l<r
+1119. Remove Vowels from a String
+	记住了。重点是用set来存元音，set 是lookup中最快的方式(O(1). String/list lookup 是string/list长度
+	
+1/20:
+118. Pascal's Triangle
+	基本记住了。漏了一点：res = [[1] * (i+1) for i in range(numRows)]
+119. Pascal's Triangle II
+	没记住。主要用We then make 2 copies of this layer, add 0 to the start of one copy, and add 0 to the end of one copy; then we have [0, 1, 2, 1] and [1, 2, 1, 0]. Then we can perform the element-wise add operation and we would have [1, 3, 3, 1]. This is from the definition of Pascal's Triangle.
+937. Reorder Data in Log Files
+	没记住。分别对digit和letter两个array操作(.isdigit()。并且sort可以根据多列来排序， lambda x: (1,2)
+226. Invert Binary Tree
+	In python if you have a, b = b, a it will be done simultaneously
+101. Symmetric Tree
+	没记住。要用两个function
+94. Binary Tree Inorder Traversal
+144. Binary Tree Preorder Traversal
+145. Binary Tree Postorder Traversal
+	上面三个都没记住。要会recursion和iteration(stack.pop)
+9. Palindrome Number
+	记住了
+	
+1/31:
+283. Move Zeroes
+	没记住。快慢指针：快指针不为0时和慢指针（为0）对调
+27. Remove Element
+	没记住。i从0开始，不等则赋值然后i+1,返回I
+26. Remove Duplicates from Sorted Array
+	记住了。跟27非常相似。要先判断一下array是否为空
+203. Remove Linked List Elements
+	算记住了。记得要处理head（不特殊处理head的话需要dummy.dummy的作用就是为了处理head的特殊情况）
+237. Delete Node in a Linked List
+	没记住。Swap with next node
+	
+2/1:
+811. Subdomain Visit Count
+	没记住。这道题很考验Python基本的split之类
+412. Fizz Buzz
+	没记住。易错题！重点是不能简单return，得有个list（用数字*binary)
+
+2/2:
+509. Fibonacci Number
+	记住了最简单的recursion方法。但用memeorize(put in array)可以提高TC到O(N)
+70. Climbing Stairs
+	没记住。用top down + memeorization(dict) 最简单的DP。动态规划就是把每次递归计算出的结果保存起来以便下次直接使用，而不用再重复去计算，从而大大降低时间复杂度。
+	法二）把变量定义在class和def中间，全局变量。所以def每次call这个变量就会update，从而记录下来。如果只在def里面，就是局部变量，每次重新call这个def都会初始化回原始值。
+746. Min Cost Climbing Stairs
+	没记住。和上题非常类似。一个详细的解释：
+	https://leetcode.com/problems/min-cost-climbing-stairs/discuss/657490/Python-solution-from-a-beginner-(some-easy-steps-to-follow-to-solve-dp)
+	Cost[i] += min(cost[i-1], cost[i-2])
+64. Minimum Path Sum
+	DP: 只要记住前面的结果，都是dp
+	Recursion: 跟DP没有关系。只要出现自己call自己，就是recursion(里面再套def)
+	
+2/3:（题目共同点：都用了counter）
+1002. Find Common Characters
+	没记住。The Counter class implements &= by pairing up all the same elements, and reducing their counts to the minimum common count. 最后要用list(res.elements())，因为element返回的是iterator
+	• dict 1 & dict 2 will intersect the two counters here, the lowest counts are preserved;
+	• elements() is Counter's method, it just take the elements as many times as their counts
+349. Intersection of Two Arrays
+	记住了。先转换为set
+	Note: and is a Logical AND that returns True if both the operands are true whereas ‘&’ is a bitwise operator in Python that acts on bits and performs bit by bit operation.
+	https://wiki.python.org/moin/TimeComplexity#set
+350. Intersection of Two Arrays II
+	跟上题很像，也是用collections.Counter(nums1)。区别是这题要把重复的都写上。遇到一次-1
+	
+2/4：
+14. Longest Common Prefix
+	没记住。用zip。并且最后记得else: break因为必须连续；法二） shortest_str = min(strs, key=len)
+	strs = ["flower","flow","flight"]
+l = list(zip(*strs))
+>>> l = [('f', 'f', 'f'), ('l', 'l', 'l'), ('o', 'o', 'i'), ('w', 'w', 'g')]
+453. Minimum Moves to Equal Array Elements
+	没记住。Maths question. Sum(nums)-min*len = m
+387. First Unique Character in a String
+	没完全记住。用enumerate来得到index！当要count, index, num三个信息时
+543. Diameter of Binary Tree（重要！有很多类似题）
+	没记住。有一个变量self.res保存最后的结果，返回给上一层的是左子树或右子树
+	 learned that depth and height are properties of a node:
+		• The depth of a node is the number of edges from the node to the tree's root node.
+A root node will have a depth of 0.
+		• The height of a node is the number of edges on the longest path from the node to a leaf.
+A leaf node will have a height of 0.
+	Properties of a tree:
+		• The height of a tree would be the height of its root node,
+or equivalently, the depth of its deepest node.
+		• The diameter (or width) of a tree is the number of nodes on the longest path between any two leaf nodes. The tree below has a diameter of 6 nodes.
+		• 
+	
+202. Happy Number
+	没记住。int(i)**2 for i in str(s)
+	Note: replacing n = sum([int(i) ** 2 for i in str(n)]) with n = sum(int(i) ** 2 for i in str(n))，区别是
+	why waste memory creating an entire list of the squares, when you could sum them up one by one? This is a generator expression:
+	int(i) ** 2 for i in str(n)
+	It generates each square one at a time, dynamically, to be consumed by sum(). A list of squares is not created.
+258. Add Digits
+	没记住。数学题，主要是(num-1)%9+1. 用分别求商，余数也可以做
+1085. Sum of Digits in the Minimum Number
+	比较简单。可以直接min,sum(map(int
+	
+2/6：
+38. Count and Say
+	没记住。强行记这题！
+268. Missing Number
+	记住了。可以直接用sort，但是TC就为nlogn(sort)。最好用bit manipulation(XOR)，TC为O(n)；或者用高斯公式
+	Note: Python bitwise XOR operator returns 1 if one of the bits is 0 and the other bit is 1. If both the bits are 0 or 1, then it returns 0. (0^n=n)
+	XOR：只有在一数为0一数为1 时结果才是1，不然都是0（1^1 = 0, 1^0 = 1 , 0^1 = 1, 0^0 = 0)
+	OR：只要有一个数是1，结果就是1（1|1 = 1，1|0 = 1，0|1 = 1，0|0 = 0）
+		• If we take XOR of zero and some bit, it will return that bit		
+		        ○ a⊕0=a
+		• If we take XOR of two same bits, it will return 0
+		        ○ a⊕a=0
+		• a⊕b⊕a=(a⊕a)⊕b=0⊕b=b
+	Python Bitwise Operators:
+		OPERATOR	DESCRIPTION	SYNTAX
+		&	Bitwise AND	x & y
+		|	Bitwise OR	x | y
+		~	Bitwise NOT	~x
+		^	Bitwise XOR	x ^ y
+		>>	Bitwise right shift	x>>
+		<<	Bitwise left shift	x<<
+	
+136. Single Number
+	没全记住。仍然用bit manipulation，初始化missing=0（一般这个方法都是初始化为0，这样0^n=n直接能得到结果）
+389. Find the Difference
+	没全记住。三种方法：1. sort然后挨个比; 2. collections.counter; 3. bit
+	Python's built-in function chr() is used for converting an Integer to a Character, while the function ord() is used to do the reverse, i.e, convert a Character to an Integer.
+1189. Maximum Number of Balloons
+	记住了。用的counter。括号里字母要加引号！
+	min(t.count(c) // int(cnt) for c, cnt in zip('balon', '11221'))
+1480. Running Sum of 1d Array
+	记住了。直接在原array上改。法二）用itertools.accumulate()
+
+2/7:
+463. Island Perimeter
+	没完全记住。如何从结果－2没判断对，if里有if（且第二个if有两个条件）
+733. Flood Fill
+	没记住。要用到recursion，两个def(recursion call 第二个def)
+703. Kth Largest Element in a Stream
+	没记住。求largest/smallest第一反应是heap!!(heapify)，求第几个largest/smallest也是heapq.
+	Note: heapreplace(a, x) returns the smallest value originally in a regardless of the value of x, while, as the name suggests, heappushpop(a, x) pushes x onto a before popping the smallest value.
+215. Kth Largest Element in an Array
+	注意和上一题对比。stream是有源源不断的数字进来的，所以先加了个init function，之后不断有add；array就是直接的一串数，之后无变化。
+	In Python there is a method nlargest in heapq library which has the same O(Nlogk) time complexity and reduces the code to one line: return heapq.nlargest(k, nums)[-1]
+	法二）用quick select
+414. Third Maximum Number
+	第一遍做，不会。建一个三元素的list，专门存储三个最大值（所以是O1的SC）遍历nums里的每个数，大于第一个吗？大于第二个吗？大于第三个？
+
+2/8:
+572. Subtree of Another Tree
+	没记住。主要是要判断各种none的情况
+266. Palindrome Permutation
+	记住了。
+	不过最简单的做法是sum(v % 2 for v in collections.Counter(s).values()) < 2
+
+2/9:
+242. Valid Anagram(a word, phrase, or name formed by rearranging the letters of another, such as cinema, formed from iceman.)
+	没全记住但不难。直接counter比较就行
+409. Longest Palindrome
+	没记住。看所有数余数的和，如果最后>1就减掉，最后只能+1
+278. First Bad Version
+	没记住。isbadversion是已经定义好的函数，用binary search然后call它
+374. Guess Number Higher or Lower
+	记住了。和上题非常像。
+35. Search Insert Position
+	记住了。和上题非常像。重点是最后return的index是left
+204. Count Primes
+	没记住。强行记！三个注意点：①loop范围可以精简为range(2, int(n**0.5)+1);
+	②变True为False的步长：primes[i* i:n:i] = [False] * len(primes[i*i:n:i])；③用这种方式来间断赋值：nums[i*i:n:i] = [False] * len(nums[i*i:n:i])
+
+2/10:
+697. Degree of an Array
+	没记住。三个dict,存每个数最左、最右和一共出现几次；找出现次数最大的，其对应的哪些数字，找其中左右index最小的
+83. Remove Duplicates from Sorted List
+	记住了。不能直接对head操作，要有curr。并且注意判断循环条件（两个都不能为none）
+1470. Shuffle the Array
+	没记住。Tips 1：Append will add one item to the list, while += will copy all elements of RHS list into the LHS list.
+	Tips 2：flattening a nested list using `sum(iterable,[])` 
+	Tips 3: list不能直接加int，因为int is not iterable。有两种方法，①int加[]变成list，然后list+=…②list.append(int)
+
+2/11:
+1200. Minimum Absolute Difference
+	第一遍，没做出来。重点是要先sort：The minimum absolute difference must be a difference between two consecutive elements in the sorted array. 可以就过一遍，一边比较相邻两个数大小，一边更新mindiff
+	法二）mn = min(b - a for a, b in zip(arr, arr[1:])) return [[a, b] for (a, b) in zip(arr, arr[1:]) if b - a == mn]
+	注意！！List compresion是先写for loop再写if condition
+243. Shortest Word Distance
+	第一遍，没做出来。用enumerate分别找出Word1和Word2。注意初始值的定义
+1608. Special Array With X Elements Greater Than or Equal X
+	第一遍做，逻辑有点绕。用binary search做最优。没太明白。
+	
+2/15:
+1047. Remove All Adjacent Duplicates In String
+	记住了。用stack做，存数pop
+1209. Remove All Adjacent Duplicates in String II
+	差不多记住了。法一）用stack存tuple(char, count): stack[s[0] ,1]]。不需要另外定义一个变量count； 法二）two pointer(不会）
+	Note: This error occurs when you try to use the integer type value as an array. In simple terms, this error occurs when your program has a variable that is treated as an array by your function, but actually, that variable is an integer.
+1025. Divisor Game
+	没记住。结果很简单：N % 2 == 0。
+	Simply put: even numbers always win.
+	Odd numbers will give back an even number to your opponent, so odd numbers always lose.
+1086. High Five
+	没记住。法一）sort。 for循环中第一个if必须分开写，不能合并！
+	法二）heap。要强行记住！用minheap，heappush(dict[i], val), 一旦len超过5就pop
+1122. Relative Sort Array
+	第一遍，没做出来。重点是custom sorting
+205. Isomorphic Strings
+	没记住。set是最简单的方法。其他方法没看明白
+	https://leetcode.com/problems/isomorphic-strings/discuss/57941/Python-different-solutions-(dictionary-etc).
+290. Word Pattern
+	记住了。这题和上题的区别在于要判断s和t两个list长度得相等
+836. Rectangle Overlap
+	没记住。法一）首先检查是否是直线，然后判断不是在它的上/下/左/右面。（在这些位置，然后取反）
+	法二）min(rec1[2], rec2[2]) > max(rec1[0], rec2[0]) 左x的最大小于右x的最小
+
+2/16:
+223. Rectangle Area
+	跟836很像。为什么报错？
+168. Excel Sheet Column Title
+	没记住。注意：Z对应的余数是25。又涉及到了char(ord('A')+n) ->对应的字母
+	We can't simply use the n%26 method because:
+	ZZZZ＝Z×26³＋Z×26²＋Z×26¹＋Z＝26×26³＋26×26²＋26×26¹＋26
+	We can use (n-1)%26 instead, then we get a number range from 0 to 25.
+171. Excel Sheet Column Number
+	没记住。不难，但是一直没记住。这两题和reverse integer挺像的，就是for loop然后res=res*26。这题还比上题简单，这题从左到右依次处理，ord(s[i])-ord(A)+1
+252. Meeting Rooms
+	记住了。比较简单。先排序
+
+2/17:
+253. Meeting Rooms II
+	第一遍做，不会。用minheap:先按start排序，然后end加入heap，循环每次看下一个end和当前heap堆顶大小（最早的end）。如果比他大可pop。每次循环都push进一个新的end进入heap
+56. Merge Intervals
+	第一遍做，差不多做出来了。跟252很像，先排序，用一个空的list存结果。每次都拿新interval和list最后一个比较。
+172. Factorial Trailing Zeroes
+	第一遍做，不会。主要是算阶乘数里有几个5、几个25（贡献俩0）、几个125（贡献仨0）。写法很简单，类似reverse int
+	Note：keeping in mind that log bases are insignificant in big-oh notation
+496. Next Greater Element I
+	没记住。Intuition:enumerate nums2，在里面找比当前num2大的，找到就赋值dict然后break（注意区分break和continue：break是结束整个inner loop；continue是当前inner loop结束进入下一个inner loop）
+	法二）更巧妙的方法。用stack:只处理nums2，如果新的数大于之前的数，pop之前的数并把这对存到dict里；如果<之前的数，就不断push进stack，直到遇到>的数。然后在nums1里对应找
+112. Path Sum
+	没记住。最简单的方法：先确定两个edge case(root & leaf)，sum-val，然后往下传
+	Note: 定义function的时候如果括号里有self，就在call它的时候前面＋self
+113. Path Sum II
+	第一遍做，不会。如何判断是否一个def可以搞定？看在这个def里需要的variable是否一样，如果需要的一样则可以写在一个def里，如果不一样就需要两个def（分别定义var)
+	Note:这题有个需要注意的点：ls append进res的时候必须res.append(list(ls))或者res.append(ls[:]).前者是新建了一个list然后把ls赋值进去，后者是deep copy,作用都是拷贝ls,因为之后的recursion过程中ls会变化
+437. Path Sum III
+	第一遍做，不会。用prefix sum（参考560）为何这里可以直接调用self.dfs(left), self.dfs(right)，而不需要a=self.dfs(left),b=self.dfs(right)?因为a=表示需要从子树得到其结果，如果不需要结果，直接top down把参数往下传，就可以直接调用def(参考113、437）
+666. Path Sum IV
+	第一遍做，不会。分别找出depth,pos,val。在每一层存储当前路径 之前所有node之和。然后在以depth,pos为key的dict中找左右孩子是否存在，不存在把之前得到的sum加到res里。
+	
+2/18：
+560. Subarray Sum Equals K
+	第一遍做，不会。用prefix sum：a sum of the current value with all previous elements starting from the beginning of the structure.
+	
+2/19:
+404. Sum of Left Leaves
+	没记住。
+392. Is Subsequence
+	第一遍做，看了思路会自己写。用two pointer，快慢指针遍历两个string，相等都加1，不等只有长string的指针加1
+	Note：这题有好几种解法，还有DP。可以复看
+69. Sqrt(x)
+	没记住。用binary search。挺容易错的！首先开始判断edge case(什么情况可以直接返回)。最后要return right
+367. Valid Perfect Square
+	第一遍做，做出来了。跟上题几乎一样。同样注意开始先判断edge case!
+	
+2/20:
+1507. Reformat Date
+	没全记住。关键点1：用split；关键点2：{:0>2}表示format to 2 chars using padding 0；[:-2]表示从开始到倒数第三个数
+633. Sum of Square Numbers
+	第一遍做，方法超时了。跟69、367基本一样，但是这个不要把0&1排除掉
+13. Roman to Integer
+	没全记住。在确定range的时候出了问题。Range(len(s)-1,0,-1)
+12. Integer to Roman
+	第一遍做，算做出来了。重点是把数字字母对照表全！部！列出来
+5. Longest Palindromic Substring
+	没记住。i遍历len(s)，每个i都作为center朝两边展开。分奇偶两种情况。再写个helper function，while loop，最后返回子串。每次都跟当前最长的比。
+	
+2/21:
+647. Palindromic Substrings
+	第一遍做，算做出来了。基本跟上题（5）一样。也是要分奇偶：因为有可能aba或者abba
+1629. Slowest Key
+	没记住。很简单，第一个需要特殊处理，那就把它作为baseline，for loop跟它比，大了就替换
+724. Find Pivot Index
+	没记住，intuition方法TLE。可以left_sum, S分别赋值，判断，left+=
+160. Intersection of Two Linked Lists
+	没记住。需要强行记，像追及问题。A+c+b和b+c+a，这样就补齐了length diff。intuition方法TLE（分别loop A和B）
+599. Minimum Index Sum of Two Lists
+	基本做出来了。重点是如何保存最小的index和。先list comp.得到list1的，然后for loop list2
+1413. Minimum Value to Get Positive Step by Step Sum
+	做出来了！ Find the min prefix sum
+	法二）The accumulate function from python's itertools returns an iterator over the prefix sums and helps us to create a nice one-liner.  return max(1, max(1 - prefix_sum for prefix_sum in itertools.accumulate(nums)))
+217. Contains Duplicate
+	做出来了，直接用set。也可以用sort
+219. Contains Duplicate II
+	没记住。重点是如何keep a k length window: 如果从没在set里出现，加进去，如果len超过k,remove nums[i-k]
+	法二）用dict保存index和num，如果超过k或不在dict里, index赋成当前这个新值
+220. Contains Duplicate III
+	第一遍做，不会。用bucket sort。一开始有点难理解。
+	https://leetcode.com/problems/contains-duplicate-iii/discuss/339421/Python-bucket-method-in-detail
+628. Maximum Product of Three Numbers
+	没全记住。只需返回两种情况（比大小）：第一第二最后一个，最后三个
+
+2/22:
+152. Maximum Product Subarray
+	第一遍做，没做出来。我的intuition是brute force解法，两个loop第二个从i开始（先让prod=1）
+	用DP做：存三个数，当前这个数，accu max*当前，accu min*当前。注意点：we've to use old max_prod and old min_prod in every iteration to compute their updated values and not updated max_prod or updated min_prod.
+108. Convert Sorted Array to Binary Search Tree
+	没记住。Implement helper function helper(left, right), which constructs BST from nums elements between indexes left and right
+	Note:the height-balanced restriction means that at each step one has to pick up the number in the middle as a root.
+109. Convert Sorted List to Binary Search Tree (List means singly linked list)
+	第一遍做，不会。用了solutions的approach2：recursion+conversion to array.先把linked list转化为array。Approach3没看懂
+	Note: 碰到linked list的题，用快慢指针找到中间element
+450. Delete Node in a BST
+	第一遍做，没做出来。有点难理解，要之后再回味。写的时候有三个def:successor/predecessor/deleteNode
+	Note: three facts to know about BST: 1. Inorder traversal of BST is an array sorted in the ascending order.(BST就是左边比他小，右边比他大）
+	2.Predecessor = "before node", i.e. the previous node, or the largest node before the current one.
+	3.Successor = "after node", i.e. the next node, or the smallest node after the current one.
+	
+	Fun fact: Inorder traversal is not a unique identifier of BST. At the same time both preorder and postorder traversals are unique identifiers of BST. From these traversals one could restore the inorder one: inorder = sorted(postorder) = sorted(preorder), and inorder + postorder or inorder + preorder are both unique identifiers of whatever binary tree.
+977. Squares of a Sorted Array
+	没记住。要用O(N)做，用双指针，倒着遍历（因为只能先判断最大的也就是放在res最后面的）
+819. Most Common Word
+	没完全记住。关键是：''.join([c.lower() if c.isalnum() else ' ' for c in paragraph]) 以及max(count.items(), key = operator.itemgetter(1))[0]
+	Note: split()里面什么都不加表示seperator为whitespace，如果split(' ')表示空格隔开。有可能一个whitespace包含了很多空格。另外没有split('').会报错：empty seperator
+	Dict.items() returns a view object. The view object contains the key-value pairs of the dictionary, as tuples in a list
+	x.sort(key=operator.itemgetter(1, 2))等同于x.sort(key=lambda x:(x[1], x[2]))
+	
+2/23:
+104. Maximum Depth of Binary Tree
+	没全记住。关键是call自己之后要+1。问下面的儿子要结果
+	法二）用stack做iteration
+111. Minimum Depth of Binary Tree(用BFS最好）
+	做错了，和上题不同 ->因为有可能出现0，0不能算进min. We need to add the smaller one of the child depths - except if that's zero, then add the larger one.
+	法二）用BFS 更适合
+	法三）用跟下题几乎一样的方式。min_depth = min(self.minDepth(c) if c else float('inf') for c in children)。注意当if else和for同时出现在list comprehension里时，先写if else
+	Note: map外要加list -> list(map(  的原因This is because a map returns a lazy object in python3. This means that, once you traverse a lazy object you won't be able to traverse again. Here, you call min(d) and then max(d), so in the first call of min(d), the lazy object would have been traversed, and it would be pointing to the end. So when you call max(d), there is nothing left to traverse, hence you get an error as an empty sequence.
+559. Maximum Depth of N-ary Tree
+	 第一遍做，没做出来。对root.child里每一个元素求maxdepth
+1275. Find Winner on a Tic Tac Toe Game
+	没记住。把所有位置的可能性都列出来，然后比在那个位置出现的player是否有三个
+270. Closest Binary Search Tree Value
+	不会。法一）用in order traversal.  self.inorder(root.left) + [root.val] + self.inorder(root.right) if root else []
+	法二）用binary search(iterative)。go left if target is smaller than current root value, and go right otherwise. Choose the closest to target value at each step.
+	Binary Search Tree的增删查：（删昨天做了450. Delete Node in a BST）
+	Note: the value of all left descendants must be less than all right descendants, not only the immediate children.
+700. Search in a Binary Search Tree
+	做出来了。跟上题基本一样。用iteration做更好理解
+	Iteration: while root: root = root.left if root.val > target else root.right
+	Recursion: if root is None…: 
+				Return
+		         return self.searchBST(root.left, val) if root.val > val else self.searchBST(root.right, val)
+701. Insert into a Binary Search Tree
+	第一遍做，不会。Iteration更好理解
+	Recursion: if val > root.val: root.right = self.insertIntoBST(root.right, val)
+				       else: root.left = self.insertIntoBST(root.left, val)
+	Note: One of the huge BST advantages is a search for arbitrary element in O(logN) time. Here we'll see that the insert time is O(logN), too, in the average case.
+257. Binary Tree Paths
+	没记住。
+	Recursion:再建一个def用来construct path：If node is not a leaf, one extends the current path by a node value and calls recursively the path construction for its children. If node is a leaf, one closes the current path and adds it into the list of paths.
+	Iteration: If not, one pushes its child nodes and corresponding paths into stack till all nodes are checked.
+	初始化stack=[(root,str(root.val)], while stack pop, node.left -> stack.append, node.right, leaf->append paths
+	
+2/24:
+796. Rotate String
+	没记住。Simple check: B一定在A+A里面，且长度相等。法二）brute force. instead of A[0], A[1], A[2], ..., we have A[s], A[s+1], A[s+2], ...; and we should check that A[s] == B[0], A[s+1] == B[1], A[s+2] == B[2], etc. 
+	for i in range(len(A)):
+	            return all(A[(s+i)%len(A)] == B[s] for s in range(len(A)))
+459. Repeated Substring Pattern
+	没记住。用concatenation.如果s是repeatable的，那s一定在(S+S)[1:-1]里
+
+
+	Python Regex Pattern
+	
+	
+686. Repeated String Match
+	第一遍做，不会。b如果要在a的几倍里，要么在n=ceil(len(B)/len(A))注意是/不是//，要么在n+1里。分别试这两个
+	Note: Ceil 返回的是比他大的最小数
+	Robin Carp?
+28. Implement strStr()
+	没记住。法一）从左往右(n-L)扫描，依次对haystack中的slice判断是否==needle
+	法二）双指针。先找到needle和haystack开始相等的点，往后看（两指针++,长度+）如果长度等于needle的长，返回指针，长度不等的话backtrack到下一个点，重复往后看操作
+1710. Maximum Units on a Truck
+	第一遍做，做错了。For count, units in list… 用倒过来的想法： trucksize -= count 直接跟更新后的trucksize比较。此题另一个注意点：需要在else里面有个return
+844. Backspace String Compare
+	没记住。要用itertools.zip_longest().这题用到了没搞明白的yield！
+	法一）用stack.pop。再建个函数。法二）双指针。强行记。
+448. Find All Numbers Disappeared in an Array
+	做出来了简单的方法，但要O(N)的SC。
+	法二）强行记。 O(1) SC：For each number i in nums, we mark the number that i points as negative. Then we filter the list, get all the indexes who points to a positive number. Since those indexes are not visited.
+617. Merge Two Binary Trees
+	算是做出来了recursion。又忘了加root.left = self.mergeTrees(root1.left, root2.left)!一定要有root.left =  ,要不然右子树没东西。
+	🤔：是不是只要是数都要给他赋值到一个var?通常root.left/root.right
+	Iteration看了答案没全看懂
+
+2/25:
+228. Summary Ranges
+	算做出来了。别忘了最后还要再append一次！因为最后一个数只看但没被操作到。
+	用enumerate加start pointer的方法不用特殊处理edge case。if i == len(nums)-1 or nums[i+1] - nums[i] != 1
+163. Missing Ranges
+	第一次做，没做出来。这题不能用上题的思路，太多edge case了。nums = [lower-1] + nums + [upper+1] 如果用到range并且edge case太多，可以考虑拓宽array的边界以此处理edge case
+1071. Greatest Common Divisor of Strings
+	第一次做，没做出来。求最大公约数，用辗转相除法。就是不断从长数里减去短数，最后剩下的就是最大公约。
+	Note:这道题可以用string.startswith(value,start,end). returns True if the string starts with the specified value, otherwise False
+690. Employee Importance
+	第一次做，没做出来。关键是列出这个list：emap = {e.id: e for e in employees}，然后就用DFS.这题的class定义有点拗
+892. Surface Area of 3D Shapes
+	第一次做，没做出来。
+	sum(min(a, b) * 2 for row in (grid + list(zip(*grid))) for a, b in zip(row, row[1:]))
+
+2/27:
+874. Walking Robot Simulation
+	第一遍做，不会。此题为刚开始接触图的经典题，有经典做法。用dx,dy表示方向，di为它们的index，共同来控制方向。
+	        dx = [0, 1, 0, -1]
+	        dy = [1, 0, -1, 0]
+	         x = y = di = 0
+	Note: 必须先把list转化为tuple然后再set，因为list是mutable的，所以unhashable。tuple因为immutable so hashable.
+155. Min Stack
+	没记住。为了拿到当前stack的最小值，必须append tuple(当前值，当前最小值）
+	Note:不能用binary search或者heap。While these data structures are often great for keeping track of a minimum, their core operations (find, add, and remove) are O(logn)
+	法二）也可以用two stacks做
+716. Max Stack
+	没全记住。跟上题很像。区别在于popmax需要再建个stack存pop出来的，然后加进原stack
+938. Range Sum of BST
+	没记住。如果值比最小值还小，说明只可能在右branch，那么就要call func且return
+359. Logger Rate Limiter
+	没记住。很简单，用dictionary储存message和timestamp。如果msg之前没出现过，返回true并加进去；之前出现过的话，比现在的时间和原时间的差
+	Note: List有两种 array list和linked list
+121. Best Time to Buy and Sell Stock
+	没记住。One pass: ①min_price_so_far; ②best_possible_profit_if_sold_now; ③max_profit
+122. Best Time to Buy and Sell Stock II
+	没记住。就是所有相邻两差之和。
+346. Moving Average from Data Stream
+	没记住。用deque做，tail = deque.popleft，再建self.size=size,self.count=0,self.windowsum=0,
+169. Majority Element
+	做出来了。用的Counter。优化解法是Boyer-Moore Voting Algorithm摩尔投票法。先选第一个数为candidate并记下count，不一样的话就count-1，直到count为0就换candidate
+	注意：it is guaranteed that there is a majority element in the array so your implementation can omit the second pass
+229. Majority Element II
+	第一遍没做出。摩尔投票法，变形：最多有两个major，所以就用两个count来记录。注意：最后要检查那两个数是否超过n/3，不然有可能就是最后出现的两个数，因为没删。上题如果没有保证一定有这个majority element也要进行这步检验。
+1150. Check If a Number Is Majority Element in a Sorted Array
+	用binary search。
+263. Ugly Number
+	第一遍没做出。简单但是容易错，就for x in [2,3,5]
+264. Ugly Number II
+	第一遍没做出。用DP三指针，先求分别乘2乘3乘5的最小值，如果相等，相应指针+1
+
+	
+
+
+
+(新年快乐！牛年大吉！）从今天开始按照胖头龙的list来刷题
+2/28: 二分法
+	① 朴素二分法
+	704. Binary Search
+		做出来了。if和elif的区别！！
+	34. Find First and Last Position of Element in Sorted Array
+		第一遍没做出。不会。分别建BSleft和BSright，找左和右
+		Note:如果出现 l<=r就不能有l = mid或者r=mid，因为这样可能死循环。只要l/r = mid +/-1 就不用担心死循环，因为l/r会变化。
+	702. Search in a Sorted Array of Unknown Size
+		没记住。Unknown size说明incoming是个stream，通过不断right = right*2来扩张range(就在最经典BS上加了这一步)
+		Note: To speed up, one could use here bitwise shifts:
+			• Left shift: x << 1. The same as multiplying by 2: x * 2.
+			• Right shift: x >> 1. The same as dividing by 2: x / 2.
+	153. Find Minimum in Rotated Sorted Array
+		第一遍没做出。While loop必须是left <right，如果有=的话会陷入死循环。
+	658. Find K Closest Elements
+		第一遍没做出。
+
+3/1:
+200. Number of Islands
+	用DFS。另建一个function
+
+3/2: String
+3. Longest Substring Without Repeating Characters
+	第一遍做出来了，但用的brute force。这题要用sliding window:enumerate.如果值出现过并且window的起始<=这个值开始的index，那么更新start到旧index之后，不然的话更新longest
+	Note: Get into the habit of recognizing sliding window problems whenever you see "substring".
+	总结帖
+	https://leetcode.com/problems/longest-substring-with-at-most-two-distinct-characters/discuss/49708/Sliding-Window-algorithm-template-to-solve-all-the-Leetcode-substring-search-problem.
+159. Longest Substring with At Most Two Distinct Characters
+	第一遍没做出。和上题相似。一旦dict里的元素超过2个，把最左边的delete掉，left+=1,一直到 r<len(s)
+340. Longest Substring with At Most K Distinct Characters
+	
+	Note：为了整体达到O(N)的TC，以下四种操作要是O(1).前三种可以通过dict实现，第四个是linked list
+	• Insert the key
+	• Get the key and check if the key exists
+	• Delete the key
+	• Return the first or last added key/ value
+	There is a structure called ordered dictionary, it combines behind both hashmap and linked list. In Python this structure is called OrderedDict
+	□ The only difference between dict() and OrderedDict() is that:
+	OrderedDict preserves the order in which the keys are inserted. A regular dict doesn’t track the insertion order, and iterating it gives the values in an arbitrary order. By contrast, the order the items are inserted is remembered by OrderedDict.
+	□ Ordered Dict can be used as a stack with the help of popitem function. Try implementing LRU cache with Ordered Dict.
+	□ OrderedDict.popitem(last=False) returns the first or last key-value, after deleting it. Setting last to False signals you wanted to remove the first.
+438. Find All Anagrams in a String(Anagram:把单词里的字母重新排列组合 形成的一个新单词）
+	第一遍没做出来。用sliding window.当window的起始值>=短list的长度时，如果window最左边元素=1就delete掉，不然count-=1。即：We can maintain the window by deleting the value of s2[i - len(s1)] when it gets larger than len(s1)
+567. Permutation in String
+	第一遍没做出来。用sliding window。这几题都一个套路。这一题可以不用counter，直接用array，可以先把string用ord(x)-ord(a)转化为数字。思路也是先把遍历当前数加进window，长度大于短的string的话，window第一个数-1
+	
+3/3: DFS
+110. Balanced Binary Tree（这题可以对比top down和bottom up，有动态图)
+	不会。求height的问题，注意if not root: height为-1.
+	Top down: def isBalanced & def height; Bottom up: def isBalanced & def helper
+100. Same Tree
+	不会。判断好返回的case，然后return self…(left) and self…(right)
+872. Leaf-Similar Trees
+	不会。这题是yield最好的implementation. 不会yield所以用的两个def，一个是findleaf，把所有左右leaf都加到list里；另一个是主def，比较左右两🌲
+	Note: According to Morgan's theorm :- inv(A or B) == inv(A) and inv(B). So if you want to use and then do not root.left and not root.right which is equivalent to not(root.left or root.right)
+783. Minimum Distance Between BST Nodes
+530. Minimum Absolute Difference in BST
+	这两题是一样的。两种方法：
+	法一）def里再写个dfs的def：if node.left: dfs(node.left)；然后中间lst.append(node.val)；这个def外call dfs，在return的时候算min差值（用到zip）
+	法二）只用一个def。需要设全局变量（在第一个def外）。和上面相同：if node.left:self…(left)；然后中间做操作：比较当前最小值，并把当前值赋成prev的值；最后直接return 结果
+	Note:全局变量或是全局def的话，variable前面一定要加self！来表示是全局的。如果是def里面嵌套def,就不需要self
+
+	
+3/4: DFS
+897. Increasing Order Search Tree
+	第一遍没做出来。法一）两个def:自己建了一个inorder来traversal：先左边，当前这层让当前node的左边指向none，上个node(self.prev)的右边指向node，然后自己(self.prev)变为这个node，然后右边。
+	法二）用stack。思路：Keep going to the left of the tree by appending the nodes to the stack and once you reach the leaf, then pop the stack and make the first popped node as root and then for rest of the nodes, append it to the right of the current root and make the left for each node as None.
+17. Letter Combinations of a Phone Number
+	No.用DFS：backtrack(combination, next_digits) which takes as arguments an ongoing letter combination and the next digits to check.
+	Note:如果是def里嵌套def，那call里面那层def必须在定义完这个def之后！不像如果不是嵌套而是并列两个def的话，可以不管顺序。
+	[]和['']是有区别的！前者为一个空list，后者不是空list，list里有一个element是个空string。这样能保证for i in list跑起来（如果用[]的话会报错）
+394. Decode String
+	No.用stack做，遍历s：分别处理遇到[ ,], digit和else(即letter)的情况。注意在char=[ 的时候要重置current string和k!!
+	Note：注意elif和else的区别。else只跟它上面那个if有关系，跟其他并列的if无关。只要它上面的if没满足，就会进入。只有当都用elif，else才是：当上面都不符合的情况下才会进入。
+
+3/6: DFS（总结帖：
+https://leetcode.com/problems/combination-sum/discuss/429538/General-Backtracking-questions-solutions-in-Python-for-reference-%3A）
+39. Combination Sum
+40. Combination Sum II
+	这题跟上题不同之处在于这题array里可能有duplicate，所以在for loop的时候要判断当前数是否等于前一个数（先sort array）
+
+
+3/7: DFS Cont.
+46. Permutations
+	用swap做。把first理解为level，i为当前index。而且要make deep copy: res.append(nums[:])，因为nums[:] use deepcopy because nums is tracking all partial solution, it eventually become [].
+47. Permutations II
+	这题跟上题不同之处在于这题array里可能有duplicate.利用counter，遇到重复就append然后count-1。还有，这题因为直接对comb进行修改，所以每次把一个组合append到结果集之后要pop。之前的题目因为传下去的是copy，没有对path操作所以不用pop
+78. Subsets
+	这题跟combination sum很像，区别在于dfs进去首先先把path append到结果里，不需判断条件。然后再遍历i，再传下去
+90. Subsets II
+	有重复。只要在上题基础上判断nums[i]是否等于nums[i-1]，相等就continue（注意：要这么做的话初始nums必须先sort！！）
+267. Palindrome Permutation II
+	这道题的I是easy，已经做过。借助counter这个dict。奇数的话先-1，然后就可当做偶数处理
+31. Next Permutation
+	如果判断出array单调不增，那找不到了。从右往左找到第一个decrease的点，在其右边找比他大的最小值（刚刚比他大），然后两者swap，然后i到最后reverse，成为递增序列（swapping a[i-1]a[i−1] and a[j]a[j] didn't change that order.）
+	Note：这题也可以用binary search，因为右边descending
+
+131. Palindrome Partitioning
+	Range(start, len)，每次看的array是s[start:i+1]，判断是否回文
+	Note:要么res.append(path[:])，要么path + [s[:i]]，然后res.append(path)。反正都要make copy，要不然recursion的时候path会跟着变动，不能保留解。（两个list相加相当于创建了一个新的list）
+
+3/8: BFS
+102. Binary Tree Level Order Traversal
+	这不是简单的level order traversal，而是split-level：That means we could use one of the Node->Left->Right techniques: BFS or DFS Preorder.
+	法一）recursion。def dfs(node, level): if len(levels)==level: level.append([])
+	法二）BFS Queue (Deque).用三个list：最后存结果的res，存当前层的cur_level，以及存子节点为了之后pop的queue
+107. Binary Tree Level Order Traversal II
+	跟上题反过来。结果加[::-1]或者reversed(res)，但不能用res.reverse()，因为这个不是in place，应该是又建了个list
+103. Binary Tree Zigzag Level Order Traversal
+	用三个list：最后存结果的res，专门pop value的queue，专门存刚pop出来的value的level。最后把level append到levels里去。
+	Note: from collections import deque写在class之前！
+	DFS: def dfs(node,level)
+637. Average of Levels in Binary Tree
+	跟之前的一样。先用queue traverse，然后把val加到total里，然后total/len(queue) ->要用一开始的queue，因为之后会update(queue最后会变为0）
+	DFS: def dfs(node, level): if len(levels) == level:levels.append([0,0]) levels[level][0], levels[level][1]
+
+3/9:
+133. Clone Graph
+	建一个dictionary：visited，储存所有看过的点。
+	DFS：node不存在或者已经在visit里，返回；clone并放入dict里；进入node.neighbors然后recurse
+	BFS：deque. While queue:pop; for neighbor…; visited[n].neighbors.append(visited[neighbor])
+57. Insert Interval
+	法一）把新的interval直接append到intervals里，然后按第一个数排序。然后做merge interval（res[-1][1]和interval[0]比大小）
+	法二）enumerate: n要么比 i start小，要么比 i end 大。不是这两种情况的话就出现了overlap，要重新定义n的start & end
+	Note: intervals.sort是inplace的，不返回sort好的intervals，所以会出现none type。要用sorted(intervals,key=…)
+986. Interval List Intersections
+	双指针i=j=0：如果起始值的较大值<=终止值的较小值，则相交，放入res。把终止值较小的那个指针往后挪
+1539. Kth Missing Positive Number
+	这题用binary search。最后返回的是left+k
+	
+3/10:
+79. Word Search
+	很多return没明白
+207. Course Schedule
+	看中文力扣的讲解（打开了新世界！）
+	把一个 有向无环图 转成 线性的排序 就叫 拓扑排序。有向图有 入度indegree 和 出度 的概念：如果存在一条有向边 A --> B，则这条边给 A 增加了 1 个出度，给 B 增加了 1 个入度。
+235. Lowest Common Ancestor of a Binary Search Tree
+	如果p、q都大于当前node，那么node=right；都小于的话搜左边；一大一小的话（说明一左一右）这个时候就是当前node
+236. Lowest Common Ancestor of a Binary Tree
+	法一）recursive
+	法二）iterative using parent pointers
+
+3/11:
+1644. Lowest Common Ancestor of a Binary Tree II
+	II和I的区别在于：II有可能p或者q不存在。可以用 I 的办法(BFS)，只要多加一句：
+	if p not in parent or q not in parent:
+	            return None
+	用DFS做的话：不像 I return的是true/false，这个return的是数字（是否=2）而不是node，所以即使找到了结果也不能直接return，而要把它存在self.res里
+	或者用标答的Euler Path
+1650. Lowest Common Ancestor of a Binary Tree III
+	用双指针，这题和找两个linkedlist的交点一个方法。按照父节点走直到到root，到root就替换为另一个点q
+	法二）我自己用set做出来了：先把p的祖先都加进set，然后找q在不在里面直到找到
+210. Course Schedule II
+	 跟 I 一个方法，就是queue pop的时候要存进res里。注意：最后要检查res长度是否等于course数量来检验有无环（I 最后也有检验有无环的一步）
+
+3/12:
+291. Word Pattern II
+	DFS backtracking.要搞明白k和j分别是啥的index
+91. Decode Ways
+	用DP做。
+	https://leetcode-cn.com/problems/decode-ways/solution/dong-tai-gui-hua-java-python-by-liweiwei1419/
+658. Find K Closest Elements
+	没想明白，强行记忆。先求出mid，然后在mid和mid+k中求中间值，跟x比较
+74. Search a 2D Matrix
+	没记住！这题用divmod分别得到mid的商和余数！（核心还是mid，关键如何用row,col表示出matrix[mid])
+240. Search a 2D Matrix II
+	没记住。从左下或右上开始（这两个点可根据大小往两个方向走，而左上和右下则不行，会miss row/col）
+
+3/13:
+注意！
+matrix = [[1, 2, 3], [4, 5], [6, 7, 8, 9]] 
+# Nested List Comprehension to flatten a given 2-D matrix 
+flatten_matrix = [val for sublist in matrix for val in sublist] 
+
+852. Peak Index in a Mountain Array
+	用BS。或者一行：return A.index(max(A))
+162. Find Peak Element
+	没做出。因为左右两端都是负无穷，所以比较mid & mid+1，往更大的那边走一定能找到。最后返回left
+33. Search in Rotated Sorted Array
+	没做出。重点在：一个排好序的数列shift了，取他中间值，只有一边是会被sort好。注意加"="的情况
+81. Search in Rotated Sorted Array II
+	跟上题区别在于这题有duplicate。无语了这题。。太容易错了
+	连上上题的总结：
+	①只要left<=right，一定是left+=1 and right -=1（因为如果left或right有一个=mid的话，一旦left=right了，=mid的那个数不再改变，会进入死循环）；如果是left<right，说明left或者right有一个可为mid。具体可见这题。
+	②while left <=right: nums[mid]<nums[right]说明右边有序；nums[mid]>nums[right]说明左边有序
+	Nums[mid]=nums[right]说明无法判断target在左还是右，所以right-=1直到mid和right不等为止
+	③while l <= r和 while l<r的区别在于 l==r的时候循环走不走，所以会产生死循环的可能
+	Follow-up: Time complexity : O(N)O(N) worst case, O(\log N)O(logN) best case, where NN is the length of the input array.
+Worst case: This happens when all the elements are the same and we search for some different element. At each step, we will only be able to reduce the search space by 1 since arr[mid] equals arr[start] and it's not possible to decide the relative position of target from arr[mid]. Example: [1, 1, 1, 1, 1, 1, 1], target = 2.
+Best case: This happens when all the elements are distinct. At each step, we will be able to divide our search space into half just like a normal binary search.
+	
+3/14: Binary Search总结帖 https://leetcode.com/discuss/general-discussion/786126/python-powerful-ultimate-binary-search-template-solved-many-problems
+
+875. Koko Eating Bananas
+	Floor(): largest int <= x（向下取整）; ceil(): smallest int >= x（向上取整）这题要用ceil
+1283. Find the Smallest Divisor Given a Threshold
+	做出来了。跟上题完全一样
+
+Sort总结帖 https://leetcode.com/problems/sort-an-array/discuss/276916/Python-bubble-insertion-selection-quick-merge-heap
+912. Sort an Array
+	用bubble sort/insertion sort/selection sort都TLE，只能用merge sort/quick sort
+75. Sort Colors
+	用p0表示rightmost boundary of 0；用p2表示leftmost boundary of 2
+80. Remove Duplicates from Sorted Array II
+	不能用 I 的方法做。一旦更新了nums[慢指针]，就要慢指针 +1
+347. Top K Frequent Elements （用bucket sort！O(N)。不过quickselect也能做）
+	在counter上用heap。然后heapq.nlargest(k, count.keys(), count.get)
+	Note: heapq.nlargest(n, iterable, key)
+	法二）可以用桶排序。桶排序必须知道array的范围(min, max)
+	学到一个可以用 list(chain(*bucket)) 来flatten list
+215. Kth Largest Element in an Array （用quickselect，O(N)
+	
+
+3/15:
+845. Longest Mountain in Array
+	自己做的错了。用两个指针（i和base，peak是中间用来检验是否值一直不变的）
+	可以先找到peak，然后左右扩展到极致，然后存下当前的length（不过这种方法不是one pass）
+969. Pancake Sorting
+	Note:如果要找到list里值为val的index，用list.index(val)。从后往前遍历，把最大的数放第一个，把最大数翻转到最后一个，缩小size，repeat
+43. Multiply Strings
+	没做出。优化版竖式乘法。强记的
+2. Add Two Numbers
+	没做出。注意答案如何处理最后一位要进位的情况
+141. Linked List Cycle
+	自己用set做出来了。更好的是快慢指针，如果最后相遇说明有环
+86. Partition List 
+	第一遍没做出。只要把这个linked list拆成两部分，左边比目标值小，右边比他大，再把两个连接起来。需要dummy node
+	Note：什么情况下要dummy node？
+	
+3/16:
+328. Odd Even Linked List
+	这题可以用跟上题一样的做法
+142. Linked List Cycle II
+	思路看答案。先找到他们第一次相遇点，然后一个呆在这点另一个返回head，再次相遇即为entry
+876. Middle of the Linked List
+	很简单。快慢指针（也可以用来判断链表是否有环）
+	Note:双指针使用常数大小的额外空间
+287. Find the Duplicate Number
+	这题也可以用Flyod龟兔赛跑解决：环的入口就是重复的数字（因为只有一个重复所以可以这么做）
+	还可以用二分查找：
+	https://leetcode-cn.com/problems/find-the-duplicate-number/solution/er-fen-fa-si-lu-ji-dai-ma-python-by-liweiwei1419/
+	做法总结：https://leetcode.com/problems/find-the-duplicate-number/discuss/705111/summary-7-solutions-with-complexity-analysis-and-explanation
+
+3/17:
+11. Container With Most Water
+	不难。双指针，短的那根线往里移
+209. Minimum Size Subarray Sum
+	双指针。先固定起始点，一旦>=target就可更新结果，然后起始点右移。最后return别忘了检查不存在>=target的情况。
+	Note: for ii in range(left, len):即使后面left变了，range里的不会变（一开始放进去啥就一直是啥了）
+	If和while的区别：主要是if只能判断一次conditions，而while是循环判断
+713. Subarray Product Less Than K
+	法一）BS：先取对数，避免数值溢出
+	法二）sliding window：和上题几乎一样，把上题的-nums[left]变成 /nums[left]
+	
+3/18: （全是interval相关：line sweep）
+1272. Remove Interval
+	Linear sweep.从左往右扫描，有四种情况：完全不交，左/右有overlap，remove在里面。后三种可合并，判断start和remove_start，end和remove_end的大小。
+435. Non-overlapping Intervals
+	这题可以用DP和greedy. Greedy的话：按右端点排序，遍历intervals，找出所有不overlap的区间，总长减去不overlap的即为需要删去的
+	Note: The idea of greedy algorithm is to pick the locally optimal move at each step, which would lead to the globally optimal solution.局部最优推出全局最优
+452. Minimum Number of Arrows to Burst Balloons 
+	和上题几乎一样的做法，只要改一个符号。找有多少个不overlap的区间，就是需要多少arrow
+1288. Remove Covered Intervals
+	易错。不能用index作为for loop，用start, end in intervals,最后别忘了把prev_end更新为end！！
+1229. Meeting Scheduler
+		法一）two pointers: i&j. <len。找出start和end，如果>=duration返回，否则移动end小的那个指针（因为移动大的话更不会有overlap了）
+	  法二）Heap:先把所有时长>=duration的放进heap，然后heapify。如果heappop（堆顶最小start time）出来的end time>=下一个的start time+duration，则符合条件，返回后者start time
+
+	
+
+
+
