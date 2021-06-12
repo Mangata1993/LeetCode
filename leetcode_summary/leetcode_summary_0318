@@ -773,6 +773,178 @@ Sort总结帖 https://leetcode.com/problems/sort-an-array/discuss/276916/Python-
 1229. Meeting Scheduler
 	法一）two pointers: i&j. <len。找出start和end，如果>=duration返回，否则移动end小的那个指针（因为移动大的话更不会有overlap了）
 	法二）Heap:先把所有时长>=duration的放进heap，然后heapify。如果heappop（堆顶最小start time）出来的end time>=下一个的start time+duration，则符合条件，返回后者start time
+
+	
+3/19:
+Heappop(s) 和s.pop(0)有啥区别
+395. Longest Substring with At Least K Repeating Characters
+	用递归做最简单：把 ss 按照 cc 分割（分割后每个子串都不包含 cc）
+	Note:用递归的三点：①递归的终止条件；②调用递归；③没进入递归时的返回结果
+	或者用sliding window（没看）比较难写
+238. Product of Array Except Self（不能用除法）
+	建立两个array： index左边的乘积和右边的乘积，最后相乘（要小心 L=R=[] 这样的赋值，这会导致改了R后L也改变了！！）
+	Improvement:可以用res表示index左边的乘积（跟上面的L一样），R仍表示index右边的乘积（直接是数值而不是list）。最后直接return res（res不算在SC里所以是O(1)
+303. Range Sum Query - Immutable
+	跟上题有点类似。也是算当前数之前的cumulative sum。用sum[j+1]-sum[i]得到[i,j]的和
+	Note: cumulative或者叫prefix sum算法是O(1)的TC
+325. Maximum Size Subarray Sum Equals k
+	用dictionary和accumulate sum。注意两个if分别存的是啥
+
+3/20:
+850. Rectangle Area II
+	太难了。。用了答案三：线性扫描
+	10^9: 想Binary Search
+
+3/21: （和差问题）
+5710. Number of Orders in the Backlog
+	用两个heap：buy用max，sell用min
+18. 4Sum
+	法一）双指针。这题其实解决了ksum(k=4).用了recursion来处理k-2次循环
+	法二）hashmap
+454. 4Sum II
+	法一）hashmap. 四个for loop：先找到a+b所有可能的sum,然后找-(c+d)在不在dict里
+	法二）用两个function：
+
+3/22:
+170. Two Sum III - Data structure design
+	用的hashmap，跟two sum一样。就是当complement和num一样时需要保证list里面有>1的count
+1052. Grumpy Bookstore Owner
+	存两个list：一个是本来就satisfied（先加进去然后设为0，避免在后一个list中重复算），还有一个需要用sliding window(i<X)找到最多customer
+36. Valid Sudoku
+	数独每个九宫格的index: box_index = (row // 3) * 3 + col // 3，或者就用(i/3,j/3,cur)区分。用(i,cur)和(cur,j)和(i/3,j/3,cur). 不用(j,cur)是为了避免跟前面的row混淆。要不然都是(3,3)也不知道是行的还是列的
+22. Generate Parentheses
+	用DFS. 
+	Note:区分backtrack和DFS：前者必须对当前状态直接进行修改（之后撤回），因为这里string是immutable的，s+'('相当于重新建了个string，并未改变原来的string，从而更没有undo，所以不算BT。
+	用这个简单判断括号是否valid：
+	 def valid(A):
+	            bal = 0
+	            for c in A:
+	                if c == '(': bal += 1
+	                else: bal -= 1
+	                if bal < 0: return False
+	            return bal == 0
+	Note: recursion一定其中会有个return。如果直接对结果进行操作（如list.append则不需要在recursion最后一行return，如果要返回一个结果，则还需在最后加个return）
+917. Reverse Only Letters
+	这道题的易错点在于不能在原S上直接交换，因为string immutable。必须先list(S)或者[s for s in S]把string转换成list才能用index来交换
+	Note:  isalpha() method returns true if a string only contains letters. 
+		 isnumeric() returns true if all characters in a string are numbers. 
+		isalnum() only returns true if a string contains alphanumeric characters, without symbols.
+
+3/23:
+1574. Shortest Subarray to be Removed to Make Array Sorted
+	Since we can only remove a subarray, the final remaining elements must be either: (1) solely a prefix, (2) solely a suffix or (3) a merge of the prefix and suffix.
+	最后merge的情况不能只单独比i（j不动）或比j（i不动）。必须是在满足index条件下，两者一起动。
+455. Assign Cookies
+	先直接sort，然后比大小。一开始错了，因为i和j不一定是同时移动（j一定会移但 i不一定）
+855. Exam Room
+	怪怪的题。抄了答案。跟下面849类似
+925. Long Pressed Name
+	有可能type跑完了反而原来的name没跑完，所以要检查 if i != len(name):false
+	法二）用itertools.groupby
+		g1 = [(k, len(list(grp))) for k, grp in itertools.groupby(name)]
+		return all(k1 == k2 and v1 <= v2 for (k1,v1), (k2,v2) in zip(g1, g2))
+		
+3/24:
+849. Maximize Distance to Closest Person
+	当前这个数是不是1？不是的话count+1； 是的话：左边有1吗？没有的话最大距离是count，有的话是两个1中间的位置（区分奇偶）。然后重置左边的1到当前这个1，count重置为0，更新max。最后要检查末尾是否为一连串的0，有可能也会更新max（用count代表）
+1577. Number of Ways Where Square of Number Is Equal to Product of Two Numbers
+	先算出list1和list2里每个数的平方和的frequency，然后在两个list中两个nested for loop求出所有两数相乘的可能，如果在另一个dict里的话，count+相应的frequency
+	@LRU_cache是怎么用的？
+1234. Replace the Substring for Balanced String
+	右指针for loop往右移，然后数window外面的数的count，只要都<=n/4就可以移左指针直到不满足while条件（缩小window）。这题重点是数外面的count而不是window里面的，因为里面的不重要
+605. Can Place Flowers
+	在首尾分别加[0]这样不用处理特殊情况。然后检查每个i和相邻的是否为1
+	
+3/28:
+1498. Number of Subsequences That Satisfy the Given Sum Condition
+	像two sum。L=0,r=len-1, 一旦他俩和大于target，右指针左移1，else把结果（2的r-l次方加到结果里，右移左指针）
+	
+3/29:
+445. Add Two Numbers II
+	对于逆序处理先考虑栈。这道题用栈做的，答案linkedlist的解法没看懂
+76. Minimum Window Substring
+	比较难，看的答案。注意end初始值要设成-1，不然即使答案不存在也会有返回值
+24. Swap Nodes in Pairs
+	用iterative做的，更好理解并且SC=O(1)。或者用recursion（没看）
+	Dummy node设成Listnode(0)还是Listnode(-1)无所谓，但是不能设为none，因为用到了dummy.next
+148. Sort List
+	挺经典。就是先用快慢指针把list分成两段，然后把它们串起来sort
+147. Insertion Sort List
+	看这个图比较清晰。
+	https://leetcode-cn.com/problems/insertion-sort-list/solution/dui-lian-biao-jin-xing-cha-ru-pai-xu-by-leetcode-s/
+
+3/30:
+230. Kth Smallest Element in a BST
+	Solutions里面两行就可以。followup可以加一个count作为node的属性
+98. Validate Binary Search Tree
+	法一）用inorder traversal做。法二）另建一个def，传入这个点的lower-bound和upper-bound作为新的参数
+	Note：空树也是valid BST (base case)
+501. Find Mode in Binary Search Tree
+	先inorder traversal然后count求出最大值。用O(1)的SC不会，好像要Morris遍历
+1011. Capacity To Ship Packages Within D Days（还有1482）
+	这题和koko eat banana很像，在结果集上做BS。left是所有weight的最大值，right是所有weight的总和。
+	
+3/31:
+378. Kth Smallest Element in a Sorted Matrix
+	这题用BS或者minheap（没看）。
+981. Time Based Key-Value Store
+	这题用hashmap+BS。dic.append进timestamp和value。然后对timestamp进行二分查找，找到插进去的地方，前一个位置的值就是要返回的。这题很绕，可以帮助理解BS退出情况
+	
+4/1: 关于树的遍历讲的很详细（iteration）
+https://leetcode-cn.com/problems/n-ary-tree-postorder-traversal/solution/che-di-chi-tou-shu-de-qian-zhong-hou-xu-di-gui-fa-/
+589. N-ary Tree Preorder Traversal
+	这题要注意extend进children的时候必须[::-1]，这样才能保证pop出来的是对的顺序；另外这句话要用extend而不是append因为有多个数
+590. N-ary Tree Postorder Traversal
+	跟上题正好相反。前序是 中左右，后序是 左右中。所以先变成中右左，然后revert。extend的时候是正序放进去，最后结果revert
+429. N-ary Tree Level Order Traversal
+	除了deque之外还要res和level两个空list，res放结果，level是放当前层所有的node，然后append到res里
+	法二）不需要deque.用prev和curr记录两层的node，while prev每层开一个新的list记录上一层所有node的孩子
+965. Univalued Binary Tree
+	法二）另建一个def检验值是否相等，recursion
+814. Binary Tree Pruning
+	注意recursion call必须在中间，不能写在最下面！另外，这题用==None来表示prune了这个点
+1325. Delete Leaves With a Given Value
+	跟上题基本一样
+	Trick: you can use root.left == root.right to indicate the node is leaf, because only null can equal to null in this case
+669. Trim a Binary Search Tree
+	跟上两题都很类似。区别在于处理当前root的时候，不满足范围条件的话仍要调用递归（ie.比上两题多了一层recursion）
+	Q：为啥这题里root.left写在上面或下面都对？（跟814对比）
+	A：因为这题儿子的结果不会影响你这层的结果（在范围内就留，不在就去掉），所以先看后看无所谓；可是814那题儿子的结果会影响你的结果（儿子去掉你就也可能被去掉，因为root.left或root.right为none了），所以得先看儿子(postorder)
+	
+4/2:
+1482. Minimum Number of Days to Make m Bouquets
+	这题和koko吃香蕉、D天装船是一样的。注意canMake function中最后m必须是<=0, 而非==0，因为可能最后做了超过m朵的花
+129. Sum Root to Leaf Numbers
+	用iterative preorder做的。While stack里仍必须保证root存在(if root)，因为即使root为null它append到stack里去后，while stack也认为是有值的
+	法二）用recursion。这题就是因为一直在update结果，所以只要往下传，不需return
+
+4/3:
+449. Serialize and Deserialize BST
+	用了答案的解法一：先用preorder把值变成string存下，然后用deque build(low,high)。
+	注：可以直接low<vals[0]<high
+	Approach 2&3都没看
+508. Most Frequent Subtree Sum
+	recursion不熟练。子function算当前子树的和，更新count，传给父节点subsum
+979. Distribute Coins in Binary Tree
+	从leaf节点开始，往上传的是多余coin的数量(+/-)，多几个就会有几个move，所以加到结果里
+687. Longest Univalue Path（要再多想想）
+	Q: left和left_arrow分别代表什么？left是自己孩子的结果，left_arrow是包含了自己之后的结果（传给父节点的）。都是边，不是点，所以left_arrow+right_arrow不会重复加自己
+	Note：和path sum一种类型
+	
+4/5:
+105. Construct Binary Tree from Preorder and Inorder Traversal
+	前序遍历+中序遍历可唯一确定一棵树。前序的第一个点一定是root，在中序里找到这个root的index，然后可以划分为左右子树，recursion。
+	这题迭代（用stack）的解法没看懂
+106. Construct Binary Tree from Inorder and Postorder Traversal
+	后序+中序也可唯一确定🌲。跟上题基本完全一样，唯一的区别在于遍历顺序（先右后左）以及要pop最后一个（因为后序遍历的最后一个是root）
+
+4/6:
+1041. Robot Bounded In Circle
+	两种情况会limit circle:一次指令之后，只有(x,y)不是原点，并且方向和原来的方向一致，最后才回不去
+	
+	
+	
+
 	
 
 
